@@ -14,6 +14,7 @@ var gulp        = require('gulp'),
     rimraf      = require('rimraf'),
     browserSync = require("browser-sync"),
     ftp         = require('vinyl-ftp'),
+    notify      = require("gulp-notify"),
     reload      = browserSync.reload;
 
 var path = {
@@ -84,7 +85,7 @@ gulp.task('style:build', function () {
         .pipe(sass({
             sourceMap: true,
             errLogToConsole: true
-        }))
+        }).on("error", notify.onError()))
         .pipe(prefixer(['last 4 versions']))
         .pipe(cssmin())
         .pipe(sourcemaps.write())
