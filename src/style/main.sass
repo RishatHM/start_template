@@ -1,7 +1,13 @@
+// ===============================
+//Подключаемые шрифты - библиотеки - переменные
+// ===============================
 @import "partials/fonts"
 @import "partials/libs"
 @import "partials/vars"
 
+// ===============================
+//Базовые стили 
+// ===============================
 *::-webkit-input-placeholder
 	color: #666
 	opacity: 1
@@ -35,10 +41,96 @@ body
 	line-height: 1.75
 	font-family: $default-font
 	overflow-x: hidden
+	margin: 0
+	padding: 0
 
+header, section, footer
+	background-color: $bg-color
+	color: $text-color
+
+.inverse
+	background-color: $bg-inverse-color
+	color: $text-inverse-color
+	.h1, .h2, .h3, .h4, .h5, .h6
+		color: $title-inverse-color
+	p
+		color: $text-inverse-color
+
+.h1, .h2, .h3, .h4, .h5, .h6
+	font-weight: 300
+	color: $title-color
+	line-height: 1.2
+	padding: 0
+	margin: 0
+.h1
+	font-size: 42px
+.h2
+	font-size: 34px
+.h3
+	font-size: 17px
+	font-weight: bold
+.h4
+	font-size: 17px
+	font-weight: 600
+p
+	color: $text-color
+	line-height: 1.2
+	padding: 0
+	margin: 0
+	font-size: 14px
+	font-weight: normal
+	
 .img-responsive
 	display: block
 	max-width: 100%
-	height: auto
+	height: auto 
 
+.button
+	display: inline-block
+	border: none
+	color: #fff
+	text-decoration: none
+	background-color: $accent
+	padding: 15px 45px
+	font-size: 13px
+	text-transform: uppercase
+	font-weight: 600
+	letter-spacing: 3px
+	border-radius: 2px
+	text-align: center
+	position: relative
+	outline: none
+	transition: background-color .1s ease
+	&::after
+		transition: background-color .2s ease
+		position: absolute
+		content: ''
+		height: 4px
+		bottom: 0
+		width: 100%
+		background-color: darken($accent, 50%)
+		opacity: .18
+		border-bottom-left-radius: 2px
+		border-bottom-right-radius: 2px
+		left: 0
+	&:focus, &:hover
+		text-decoration: none
+		color: #fff
+	&:hover
+		background-color: lighten($accent, 5%)
+		&::after
+			opacity: .22
+	&:active
+		background-color: darken($accent, 5%)
+		&::after
+			opacity: .32
+
+// ===============================
+//Стили для шапки - лого - меню - телефон
+// ===============================
+
+
+// ===============================
+//Подключаемые медиа-запросы
+// ===============================
 @import "partials/media" // Всегда в конце
