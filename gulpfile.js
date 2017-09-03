@@ -51,7 +51,8 @@ var config = {
     host: 'localhost',
     port: 9000,
     notify: false,
-    logPrefix: "RishatHM"
+    logPrefix: "RishatHM",
+    browser: "Firefox"
 };
 
 gulp.task('webserver', function () {
