@@ -15,15 +15,16 @@ var gulp        = require('gulp'),
     browserSync = require("browser-sync"),
     ftp         = require('vinyl-ftp'),
     notify      = require("gulp-notify"),
+    babel       = require("gulp-babel"),
     reload      = browserSync.reload;
 
 var path = {
     build: {
-        html: 'build/',
-        js: 'build/js/',
-        css: 'build/css/',
-        img: 'build/img/',
-        fonts: 'build/fonts/'
+        html: 'dist/',
+        js: 'dist/js/',
+        css: 'dist/css/',
+        img: 'dist/img/',
+        fonts: 'dist/fonts/'
     },
     src: {
         html: 'src/*.html',
@@ -40,19 +41,19 @@ var path = {
         img: 'src/img/**/*.*',
         fonts: 'src/fonts/**/*.*'
     },
-    clean: './build'
+    clean: './dist'
 };
 
 var config = {
     server: {
-        baseDir: "./build"
+        baseDir: "./dist"
     },
     //tunnel: true,
     host: 'localhost',
     port: 9000,
     notify: false,
     logPrefix: "RishatHM",
-    browser: "Firefox"
+    browser: "Chrome"
 };
 
 gulp.task('webserver', function () {
@@ -74,7 +75,8 @@ gulp.task('js:build', function () {
     gulp.src(path.src.js) 
         .pipe(rigger()) 
         .pipe(sourcemaps.init()) 
-        .pipe(uglify()) 
+            .pipe(babel())
+            .pipe(uglify()) 
         .pipe(sourcemaps.write()) 
         .pipe(gulp.dest(path.build.js))
         .pipe(reload({stream: true}));
@@ -83,12 +85,12 @@ gulp.task('js:build', function () {
 gulp.task('style:build', function () {
     gulp.src(path.src.style) 
         .pipe(sourcemaps.init())
-        .pipe(sass({
-            sourceMap: true,
-            errLogToConsole: true
-        }).on("error", notify.onError()))
-        .pipe(prefixer(['last 4 versions']))
-        .pipe(cssmin())
+            .pipe(sass({
+                sourceMap: true,
+                errLogToConsole: true
+            }).on("error", notify.onError()))
+            .pipe(prefixer(['last 4 versions']))
+            .pipe(cssmin())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(path.build.css))
         .pipe(reload({stream: true}));
@@ -156,8 +158,8 @@ gulp.task('deploy', function() {
     });
 
     var globs = [
-    'build/**',
-    'build/.htaccess',
+    'dest/**',
+    'dest/.htaccess',
     ];
     return gulp.src(globs, {buffer: false})
     .pipe(conn.dest('/path/to/folder/on/server'));
